@@ -1,36 +1,33 @@
 import React, { Component } from 'react';
 import './Profile.css';
 
-class Profile extends Component<any,any> {
-    constructor(props) {
-        super(props);
-        console.log(props);
-    }
-    render() {
-        return (
-            <div className="profile-container">
-                <div className="container">
-                    <div className="profile-info">
-                        <div className="profile-avatar">
-                            { 
-                                this.props.currentUser.imageUrl ? (
-                                    <img src={this.props.currentUser.imageUrl} alt={this.props.currentUser.name}/>
-                                ) : (
-                                    <div className="text-avatar">
-                                        <span>{this.props.currentUser.name && this.props.currentUser.name[0]}</span>
-                                    </div>
-                                )
-                            }
-                        </div>
-                        <div className="profile-name">
-                           <h2>{this.props.currentUser.name}</h2>
-                           <p className="profile-email">{this.props.currentUser.email}</p>
-                        </div>
-                    </div>
-                </div>    
-            </div>
-        );
-    }
+function Profile(props) {
+
+
+  return (
+    <div className="profile-container">
+      <div className="container">
+        <div className="profile-info">
+          <div className="profile-avatar">
+            {
+              props.currentUser.imageUrl ? (
+                <img src={props.currentUser.imageUrl} alt={props.currentUser.name} />
+              ) : (
+                <div className="text-avatar">
+                  <span>{props.currentUser.name && props.currentUser.name[0]}</span>
+                </div>
+              )
+            }
+          </div>
+          <div className="profile-name">
+            <h2>{props.currentUser.name}</h2>
+            <p className="profile-email">{props.currentUser.email}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
 }
 
 export default Profile

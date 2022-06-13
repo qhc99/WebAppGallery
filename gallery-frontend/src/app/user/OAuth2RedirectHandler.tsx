@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import { ACCESS_TOKEN } from '../../constants';
 import { Navigate } from 'react-router-dom'
 
-class OAuth2RedirectHandler extends Component<any, any> {
-  getUrlParameter(name) {
+function OAuth2RedirectHandler(props) {
+  const getUrlParameter = (name)=> {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
 
-    var results = regex.exec(this.props.location.search);
+    var results = regex.exec(props.location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
   };
 
-  render() {
-    const token = this.getUrlParameter('token');
-    const error = this.getUrlParameter('error');
+  
+    const token = getUrlParameter('token');
+    const error = getUrlParameter('error');
 
     if (token) {
       localStorage.setItem(ACCESS_TOKEN, token);
@@ -21,7 +21,7 @@ class OAuth2RedirectHandler extends Component<any, any> {
     } else {
       return <Navigate to="/login" replace={true} state={error} />;
     }
-  }
+  
 }
 
 export default OAuth2RedirectHandler;

@@ -18,6 +18,8 @@
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
     "@types/react-router-dom": "^5.3.3",
+    "eslint": "^8.17.0",
+    "eslint-plugin-react-hooks": "^4.5.0",
     "typescript": "^4.7.3"
   },
   "browserslist": {
@@ -30,6 +32,11 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:react-hooks/recommended"
     ]
   }
 }

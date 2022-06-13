@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
+  BrowserRouter,
   Route,
-  Routes
+  Routes,
+  useLocation
 } from 'react-router-dom';
 import AppHeader from '../common/AppHeader';
 import Home from './home/Home';
@@ -17,88 +19,83 @@ import PrivateRoute from '../common/PrivateRoute';
 // import 'react-s-alert/dist/s-alert-default.css';
 // import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import './App.css';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-class App extends Component<any, any> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      authenticated: false,
-      currentUser: null,
-      loading: true
-    }
-    console.log("debug")
 
-    this.loadCurrentlyLoggedInUser = this.loadCurrentlyLoggedInUser.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
+function App(props) {
+
+  const nullUserAuth = {
+    authenticated: false,
+    currentUser: null,
   }
 
-  loadCurrentlyLoggedInUser() {
-    getCurrentUser()
-      .then(response => {
-        this.setState({
-          currentUser: response,
-          authenticated: true,
-          loading: false
-        });
-      }).catch(error => {
-        this.setState({
-          loading: false
-        });
-      });
-  }
+  const [userAuth, setUserAuth] = useState(nullUserAuth);
+  const [loading, setLoading] = useState(true);
 
-  handleLogout() {
+
+  function handleLogout() {
     localStorage.removeItem(ACCESS_TOKEN);
-    this.setState({
-      authenticated: false,
-      currentUser: null
-    });
+    setUserAuth(nullUserAuth);
     // TODO Alert UI
     alert("You're safely logged out!");
   }
 
-  componentDidMount() {
-    this.loadCurrentlyLoggedInUser();
+  useEffect(() => {
+    getCurrentUser()
+      .then(response => {
+        setUserAuth({
+          currentUser: response,
+          authenticated: true,
+        });
+        setLoading(false)
+      }).catch((_) => {
+        setLoading(false)
+      });
+  }, [])
+
+
+
+  if (loading) {
+    return <LoadingIndicator />
   }
 
-  render() {
-    if (this.state.loading) {
-      return <LoadingIndicator />
-    }
+  return (
+    <div className="app">
 
-    return (
-      <div className="app">
-        <div className="app-top-box">
-          <AppHeader authenticated={this.state.authenticated} onLogout={this.handleLogout} />
-        </div>
-        <div className="app-body">
+      <div className="app-body">
+        <BrowserRouter>
           <Routes>
-            <div className="app-top-box">
-              <AppHeader authenticated={this.state.authenticated} onLogout={this.handleLogout} />
-            </div>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/profile"
+            <Route path='/'
               element={
-                (<PrivateRoute eauthenticated={this.state.authenticated} >
-                  <Profile currentUser={this.state.currentUser} />
-                </PrivateRoute>)
-              } />
-
-            <Route path="/login"
-              element={<Login authenticated={this.state.authenticated} />}></Route>
-            <Route path="/signup"
-              element={<Signup authenticated={this.state.authenticated} />}></Route>
-            <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />}></Route>
-            <Route element={<NotFound />}></Route>
+                <div className="app-top-box">
+                  <AppHeader authenticated={userAuth.authenticated} onLogout={handleLogout} />
+                </div>
+              }>
+              <Route index element={<Home />} />
+              <Route path="/profile"
+                element={
+                  (<PrivateRoute eauthenticated={userAuth.authenticated} >
+                    <Profile currentUser={userAuth.currentUser} />
+                  </PrivateRoute>)
+                } />
+              <Route path="/login"
+                element={<Login authenticated={userAuth.authenticated} />} />
+              <Route path="/signup"
+                element={<Signup authenticated={userAuth.authenticated} />} />
+              <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
+              <Route element={<NotFound />} />
+            </Route>
           </Routes>
-        </div>
-        // TODO alert UI
-        {/* <Alert stack={{limit: 3}} 
+        </BrowserRouter>
+      </div>
+      {/* // TODO alert UI */}
+      {/* <Alert stack={{limit: 3}} 
           timeout = {3000}
           position='top-right' effect='slide' offset={65} /> */}
-      </div>
-    );
-  }
+    </div>
+  );
+
 }
 
 export default App;
