@@ -69,9 +69,9 @@ function SignupForm(props) {
         // TODO alert UI
         alert("You're successfully registered. Please login to continue!");
         setRegisterSuccessRedirect(true);
-      }).catch(error => {
+      }).catch(e => {
         // TODO alert UI
-        alert((error && error.message) || 'Oops! Something went wrong. Please try again!');
+        alert((e && e.error) || 'Oops! Something went wrong. Please try again!');
       });
   }
 
