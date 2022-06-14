@@ -78,7 +78,7 @@ function App(props) {
                 element={<Login authenticated={appAuthenticated} setAppAuthed={setAppAuthenticated} />} />
               <Route path="/signup"
                 element={<Signup authenticated={appAuthenticated} />} />
-              <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler changeAuth={setAppAuthenticated} />} />
+              <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler setAppAuthed={setAppAuthenticated} />} />
               <Route element={<NotFound />} />
             </Route>
           </Routes>

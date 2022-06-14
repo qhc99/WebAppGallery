@@ -79,9 +79,9 @@ function LoginForm(props) {
         alert("You're successfully logged in!");
         setLoginSeccessRedirect(true);
         props.setAppAuthed(true)
-      }).catch(error => {
+      }).catch(e => {
         // Alert.error((error && error.message) || 'Oops! Something went wrong. Please try again!');
-        alert(error.message);
+        alert("Error Message: " + e.error);
       });
   }
 

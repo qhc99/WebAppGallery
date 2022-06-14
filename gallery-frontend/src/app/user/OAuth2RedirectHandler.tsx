@@ -19,15 +19,14 @@ function OAuth2RedirectHandler(props) {
     localStorage.setItem(ACCESS_TOKEN, token);
     const ns = error === '' ? TransitionState.Success : TransitionState.Fail;
     setTransition(ns)
-    props.changeAuth(error === '')
+    props.setAppAuthed(error === '')
   }, [props, location.search]);
 
 
 
   return (<div>
-    {(transition === TransitionState.Loading) && <h1>loading</h1>}
     {(transition === TransitionState.Fail) && <Navigate to="/login" />}
-    {(transition === TransitionState.Success) && <Navigate to="/profile" />}
+    {(transition === TransitionState.Success) && <Navigate to="/" />}
   </div>);
 
 
