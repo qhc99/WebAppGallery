@@ -25,18 +25,16 @@ import { useEffect } from 'react';
 
 function App(props) {
 
-  const nullUserAuth = {
-    authenticated: false,
-    currentUser: null,
-  }
 
-  const [userAuth, setUserAuth] = useState(nullUserAuth);
+  const [user, setUser] = useState(null);
+  const [appAuthenticated, setAppAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true);
 
 
   function handleLogout() {
     localStorage.removeItem(ACCESS_TOKEN);
-    setUserAuth(nullUserAuth);
+    setUser(null);
+    setAppAuthenticated(false)
     // TODO Alert UI
     alert("You're safely logged out!");
   }
@@ -44,15 +42,13 @@ function App(props) {
   useEffect(() => {
     getCurrentUser()
       .then(response => {
-        setUserAuth({
-          currentUser: response,
-          authenticated: true,
-        });
+        setUser(response);
+        setAppAuthenticated(true)
         setLoading(false)
       }).catch((_) => {
         setLoading(false)
       });
-  }, [])
+  }, [appAuthenticated])
 
 
 
@@ -69,21 +65,20 @@ function App(props) {
             <Route path='/'
               element={
                 <div className="app-top-box">
-                  <AppHeader authenticated={userAuth.authenticated} onLogout={handleLogout} />
+                  <AppHeader authenticated={appAuthenticated} onLogout={handleLogout} />
                 </div>
               }>
               <Route index element={<Home />} />
               <Route path="/profile"
-                element={
-                  (<PrivateRoute eauthenticated={userAuth.authenticated} >
-                    <Profile currentUser={userAuth.currentUser} />
-                  </PrivateRoute>)
-                } />
+                element={<PrivateRoute authenticated={appAuthenticated} />} >
+                <Route path='/profile' element={
+                  <Profile currentUser={user} />} />
+              </Route>
               <Route path="/login"
-                element={<Login authenticated={userAuth.authenticated} />} />
+                element={<Login authenticated={appAuthenticated} setAppAuthed={setAppAuthenticated} />} />
               <Route path="/signup"
-                element={<Signup authenticated={userAuth.authenticated} />} />
-              <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
+                element={<Signup authenticated={appAuthenticated} />} />
+              <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler changeAuth={setAppAuthenticated} />} />
               <Route element={<NotFound />} />
             </Route>
           </Routes>

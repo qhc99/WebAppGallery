@@ -39,7 +39,7 @@ public class HttpCookieOAuth2AuthorizationRequestRepository implements Authoriza
 
   @Override
   public OAuth2AuthorizationRequest removeAuthorizationRequest(HttpServletRequest request) {
-    return null;
+    return this.loadAuthorizationRequest(request);
   }
 
 

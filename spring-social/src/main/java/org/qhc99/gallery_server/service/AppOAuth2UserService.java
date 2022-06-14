@@ -23,14 +23,15 @@ public class AppOAuth2UserService extends DefaultOAuth2UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    UserPrincipalService userPrincipalService;
+    AppUserService appUserService;
 
     public static OAuth2UserInfo getOAuth2UserInfo(String registrationId, Map<String, Object> attributes) {
-        if(registrationId.equalsIgnoreCase(AuthProvider.google.toString())) {
-            return new GoogleOAuth2UserInfo(attributes);
-        } else if (registrationId.equalsIgnoreCase(AuthProvider.facebook.toString())) {
-            return new FacebookOAuth2UserInfo(attributes);
-        } else if (registrationId.equalsIgnoreCase(AuthProvider.github.toString())) {
+//        if(registrationId.equalsIgnoreCase(AuthProvider.google.toString())) {
+//            return new GoogleOAuth2UserInfo(attributes);
+//        } else if (registrationId.equalsIgnoreCase(AuthProvider.facebook.toString())) {
+//            return new FacebookOAuth2UserInfo(attributes);
+//        }
+        if (registrationId.equalsIgnoreCase(AuthProvider.github.toString())) {
             return new GithubOAuth2UserInfo(attributes);
         } else {
             throw new OAuth2AuthenticationProcessingException("Sorry! Login with " + registrationId + " is not supported yet.");
@@ -71,7 +72,7 @@ public class AppOAuth2UserService extends DefaultOAuth2UserService {
             user = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
         }
 
-        return userPrincipalService.create(user, oAuth2User.getAttributes());
+        return appUserService.create(user, oAuth2User.getAttributes());
     }
 
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {

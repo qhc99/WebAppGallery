@@ -1,18 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-    Route,
-    Navigate
-  } from "react-router-dom";
-  
-  
-function PrivateRoute (authenticated, children )  {
-  if(!authenticated){
-    return  <Navigate
-    to='/login'
-    replace={true}
-  />;
-  }
-  else return children;
+  Route,
+  Navigate,
+  Outlet
+} from "react-router-dom";
+
+
+function PrivateRoute(authenticated) {
+  return authenticated ? <Outlet /> : <Navigate to="/login" />;
 };
-  
+
 export default PrivateRoute

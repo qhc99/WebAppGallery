@@ -48,29 +48,27 @@ function SignupForm(props) {
     password: '',
   }
 
-  const [state, setState] = useState(initState);
+  const [registerInfo, setRegisterInfo] = useState(initState);
+  const [registerSuccessRedirect, setRegisterSuccessRedirect] = useState(false);
 
 
   const handleInputChange = (event) => {
     const target = event.target;
     const inputName = target.name;
     const inputValue = target.value;
-    const newState = Object.assign(state, {
-      [inputName]: inputValue
-    })
-    setState(newState);
+    setRegisterInfo({...registerInfo,[inputName]: inputValue});
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const signUpRequest = Object.assign({}, state);
+    const signUpRequest = Object.assign({}, registerInfo);
 
     signup(signUpRequest)
       .then(response => {
         // TODO alert UI
         alert("You're successfully registered. Please login to continue!");
-        props.history.push("/login");
+        setRegisterSuccessRedirect(true);
       }).catch(error => {
         // TODO alert UI
         alert((error && error.message) || 'Oops! Something went wrong. Please try again!');
@@ -80,20 +78,21 @@ function SignupForm(props) {
 
   return (
     <form onSubmit={handleSubmit}>
+      {registerSuccessRedirect && <Navigate to={"/login"} />}
       <div className="form-item">
         <input type="text" name="name"
           className="form-control" placeholder="Name"
-          value={state.name} onChange={handleInputChange} required />
+          value={registerInfo.name} onChange={handleInputChange} required />
       </div>
       <div className="form-item">
         <input type="email" name="email"
           className="form-control" placeholder="Email"
-          value={state.email} onChange={handleInputChange} required />
+          value={registerInfo.email} onChange={handleInputChange} required />
       </div>
       <div className="form-item">
         <input type="password" name="password"
           className="form-control" placeholder="Password"
-          value={state.password} onChange={handleInputChange} required />
+          value={registerInfo.password} onChange={handleInputChange} required />
       </div>
       <div className="form-item">
         <button type="submit" className="btn btn-block btn-primary" >Sign Up</button>

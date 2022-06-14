@@ -7,6 +7,7 @@ const githubLogo = require('../../img/github-logo.png');
 
 function Login(props) {
   let location = useLocation();
+  const [error, setError] = useState(false);
   useEffect(() => {
     // If the OAuth2 login encounters an error, the user is redirected to the /login page with an error.
     // Here we display the error and then remove the error query parameter from the location.
@@ -16,8 +17,7 @@ function Login(props) {
         //     timeout: 5000
         // });
         alert((location.state as any).error);
-        // TODO fix
-        <Navigate to={"/login"} />;
+        setError(true);
       }, 100);
     }
   },[location])
@@ -29,6 +29,7 @@ function Login(props) {
   return (
     <div className="login-container">
       <div className="login-content">
+        {error && <Navigate to={"/login"} />}
         <h1 className="login-title">Login to SpringSocial</h1>
         <SocialLogin />
         <div className="or-separator">
@@ -57,7 +58,7 @@ function LoginForm(props) {
     password: ''
   };
   const [emailPasswd, setEmailPasswd] = useState(nullEmailPasswd);
-  const [loginSuccess, setLoginSeccess] = useState(false);
+  const [loginSuccessRedirect, setLoginSeccessRedirect] = useState(false);
 
 
   const handleInputChange = (event)=> {
@@ -76,8 +77,8 @@ function LoginForm(props) {
       .then(response => {
         localStorage.setItem(ACCESS_TOKEN, response.accessToken);
         alert("You're successfully logged in!");
-        props.history.push("/");
-        setLoginSeccess(true);
+        setLoginSeccessRedirect(true);
+        props.setAppAuthed(true)
       }).catch(error => {
         // Alert.error((error && error.message) || 'Oops! Something went wrong. Please try again!');
         alert(error.message);
@@ -101,7 +102,7 @@ function LoginForm(props) {
           <button type="submit" className="btn btn-block btn-primary">Login</button>
         </div>
       </form>
-      {loginSuccess && <Navigate to={"/"} />}
+      {loginSuccessRedirect && <Navigate to={"/"} />}
     </div>
   );
 }

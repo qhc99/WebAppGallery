@@ -21,7 +21,7 @@ public class AppUserDetailsService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    UserPrincipalService userPrincipalService;
+    AppUserService appUserService;
 
     @Override
     @Transactional
@@ -32,7 +32,7 @@ public class AppUserDetailsService implements UserDetailsService {
                         new UsernameNotFoundException("User not found with email : " + email)
         );
 
-        return userPrincipalService.create(user);
+        return appUserService.create(user);
     }
 
     @Transactional
@@ -41,6 +41,6 @@ public class AppUserDetailsService implements UserDetailsService {
             () -> new ResourceNotFoundException("User", "id", id)
         );
 
-        return userPrincipalService.create(user);
+        return appUserService.create(user);
     }
 }
