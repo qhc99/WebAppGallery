@@ -18,7 +18,7 @@ import { ACCESS_TOKEN } from '../constants';
 import ProtectedRoute from './PrivateRoute';
 // import 'react-s-alert/dist/s-alert-default.css';
 // import 'react-s-alert/dist/s-alert-css-effects/slide.css';
-import './App.css';
+// import './App.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -40,6 +40,7 @@ function App(props) {
   }
 
   useEffect(() => {
+    console.log("load user" + new Date())
     setLoading(true);
     getCurrentUser()
       .then(response => {
@@ -54,8 +55,7 @@ function App(props) {
   return (
 
     <div className="app">
-      {loading && <LoadingIndicator />}
-      {!loading && <div className="app-body">
+      <div className="app-body">
         <BrowserRouter>
           <Routes>
             <Route path='/'
@@ -63,19 +63,21 @@ function App(props) {
                 <AppHeader authenticated={appAuthenticated} onLogout={handleLogout} />
               }>
               <Route index element={<Home />} />
-              <Route element={<ProtectedRoute isAllowed={appAuthenticated} />} >
-                <Route path='/profile' element={<Profile currentUser={user} />} />
-              </Route>
               <Route path="/login"
                 element={<Login authenticated={appAuthenticated} setAppAuthed={setAppAuthenticated} />} />
               <Route path="/signup"
                 element={<Signup authenticated={appAuthenticated} />} />
               <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler setAppAuthed={setAppAuthenticated} />} />
-              <Route element={<NotFound />} />
+              <Route element={<ProtectedRoute isAllowed={appAuthenticated} />} >
+                <Route path='/profile' element={<Profile currentUser={user} />} />
+              </Route>
+              <Route path='*' element={<NotFound />} />
             </Route>
+
           </Routes>
         </BrowserRouter>
-      </div>}
+      </div>
+      {loading && <LoadingIndicator />}
       {/* // TODO alert UI */}
       {/* <Alert stack={{limit: 3}} 
           timeout = {3000}

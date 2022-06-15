@@ -9,7 +9,7 @@ function Profile(props) {
       <div className="container">
         <div className="profile-info">
           <div className="profile-avatar">
-            {props.currentUser === null && <Navigate to={"/"} replace />}
+            {props.currentUser === null && <Navigate to={"/login"} replace />}
             {
 
               props.currentUser && (props.currentUser.imageUrl ? (

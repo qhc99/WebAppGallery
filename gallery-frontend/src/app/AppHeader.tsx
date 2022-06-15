@@ -25,6 +25,9 @@ function AppHeader(props) {
               ) : (
                 <ul>
                   <li>
+                    <NavLink to="/profile">Profile</NavLink>
+                  </li>
+                  <li>
                     <NavLink to="/login">Login</NavLink>
                   </li>
                   <li>
