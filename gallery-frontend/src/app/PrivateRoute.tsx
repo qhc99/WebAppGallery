@@ -6,13 +6,10 @@ import {
 
 
 function ProtectedRoute(isAllowed, redirect = "/login") {
-  useEffect(()=>{
-    console.log(new Date() + ": "+ isAllowed)
-  },[])
-  return (<div>
-    {isAllowed !==true && <Navigate to={redirect} replace />}
-    <Outlet />
-  </div>);
+  if(isAllowed === true){
+    return <Outlet />;
+  }
+  return <Navigate to={redirect} replace />;
 };
 
 export default ProtectedRoute

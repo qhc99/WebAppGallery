@@ -3,13 +3,15 @@ import { Navigate } from 'react-router-dom';
 import './Profile.css';
 
 function Profile(props) {
+  if (props.currentUser === null) {
+    return <Navigate to={"/login"} replace />;
+  }
 
   return (
     <div className="profile-container">
       <div className="container">
         <div className="profile-info">
           <div className="profile-avatar">
-            {props.currentUser === null && <Navigate to={"/login"} replace />}
             {
 
               props.currentUser && (props.currentUser.imageUrl ? (

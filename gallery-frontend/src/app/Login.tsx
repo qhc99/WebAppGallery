@@ -22,9 +22,12 @@ function Login(props) {
     }
   })
 
+  if(props.authenticated === true){
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <div className="login-container">
-      {props.authenticated && <Navigate to="/" replace />}
       <div className="login-content">
         {error && <Navigate to={"/login"} replace />}
         <h1 className="login-title">Login to SpringSocial</h1>
