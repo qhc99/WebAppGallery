@@ -2,16 +2,14 @@
 import React, { Component, useState } from 'react';
 import './Signup.css';
 import { Link, Navigate } from 'react-router-dom'
-import { GITHUB_AUTH_URL } from '../../constants';
-import { signup } from '../../utils/APIUtils';
-const githubLogo = require('../../img/github-logo.png');
+import { GITHUB_AUTH_URL } from '../constants';
+import { signup } from '../utils/APIUtils';
+const githubLogo = require('../img/github-logo.png');
 
 function Signup(props) {
 
   if (props.authenticated) {
-    return <Navigate
-      to="/"
-      replace={true} />;
+    return <Navigate to="/" replace />;
   }
 
   return (
@@ -78,7 +76,7 @@ function SignupForm(props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      {registerSuccessRedirect && <Navigate to={"/login"} />}
+      {registerSuccessRedirect && <Navigate to={"/login"} replace/>}
       <div className="form-item">
         <input type="text" name="name"
           className="form-control" placeholder="Name"

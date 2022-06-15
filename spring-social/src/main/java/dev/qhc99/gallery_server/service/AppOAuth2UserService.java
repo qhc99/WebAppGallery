@@ -30,11 +30,6 @@ public class AppOAuth2UserService extends DefaultOAuth2UserService {
     UserToAppUserService userToAppUserService;
 
     public static OAuth2UserInfo getOAuth2UserInfo(String registrationId, Map<String, Object> attributes) {
-//        if(registrationId.equalsIgnoreCase(AuthProvider.google.toString())) {
-//            return new GoogleOAuth2UserInfo(attributes);
-//        } else if (registrationId.equalsIgnoreCase(AuthProvider.facebook.toString())) {
-//            return new FacebookOAuth2UserInfo(attributes);
-//        }
         if (registrationId.equalsIgnoreCase(AuthProvider.github.toString())) {
             return new GithubOAuth2UserInfo(attributes);
         } else {
@@ -58,7 +53,7 @@ public class AppOAuth2UserService extends DefaultOAuth2UserService {
 
     private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
         OAuth2UserInfo oAuth2UserInfo = getOAuth2UserInfo(oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
-        if(StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
+        if(!StringUtils.hasText(oAuth2UserInfo.getEmail())) {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
 

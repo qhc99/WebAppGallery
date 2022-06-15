@@ -5,17 +5,17 @@ import {
   Routes,
   useLocation
 } from 'react-router-dom';
-import AppHeader from '../common/AppHeader';
-import Home from './home/Home';
-import Login from './user/Login';
-import Signup from './user/Signup';
-import Profile from './user/Profile';
-import OAuth2RedirectHandler from './user/OAuth2RedirectHandler';
-import NotFound from '../common/NotFound';
-import LoadingIndicator from '../common/LoadingIndicator';
+import AppHeader from './AppHeader';
+import Home from './Home';
+import Login from './Login';
+import Signup from './Signup';
+import Profile from './Profile';
+import OAuth2RedirectHandler from './OAuth2Redirect';
+import NotFound from './NotFound';
+import LoadingIndicator from './LoadingIndicator';
 import { getCurrentUser } from '../utils/APIUtils';
 import { ACCESS_TOKEN } from '../constants';
-import PrivateRoute from '../common/PrivateRoute';
+import ProtectedRoute from './PrivateRoute';
 // import 'react-s-alert/dist/s-alert-default.css';
 // import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import './App.css';
@@ -40,6 +40,7 @@ function App(props) {
   }
 
   useEffect(() => {
+    setLoading(true);
     getCurrentUser()
       .then(response => {
         setUser(response);
@@ -50,29 +51,20 @@ function App(props) {
       });
   }, [appAuthenticated])
 
-
-
-  if (loading) {
-    return <LoadingIndicator />
-  }
-
   return (
-    <div className="app">
 
-      <div className="app-body">
+    <div className="app">
+      {loading && <LoadingIndicator />}
+      {!loading && <div className="app-body">
         <BrowserRouter>
           <Routes>
             <Route path='/'
               element={
-                <div className="app-top-box">
-                  <AppHeader authenticated={appAuthenticated} onLogout={handleLogout} />
-                </div>
+                <AppHeader authenticated={appAuthenticated} onLogout={handleLogout} />
               }>
               <Route index element={<Home />} />
-              <Route path="/profile"
-                element={<PrivateRoute authenticated={appAuthenticated} />} >
-                <Route path='/profile' element={
-                  <Profile currentUser={user} />} />
+              <Route element={<ProtectedRoute isAllowed={appAuthenticated} />} >
+                <Route path='/profile' element={<Profile currentUser={user} />} />
               </Route>
               <Route path="/login"
                 element={<Login authenticated={appAuthenticated} setAppAuthed={setAppAuthenticated} />} />
@@ -83,7 +75,7 @@ function App(props) {
             </Route>
           </Routes>
         </BrowserRouter>
-      </div>
+      </div>}
       {/* // TODO alert UI */}
       {/* <Alert stack={{limit: 3}} 
           timeout = {3000}

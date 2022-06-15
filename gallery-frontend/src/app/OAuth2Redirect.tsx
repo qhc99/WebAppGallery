@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from 'react';
-import { ACCESS_TOKEN } from '../../constants';
+import { ACCESS_TOKEN } from '../constants';
 import { Navigate, useLocation } from 'react-router-dom'
-import { TransitionState } from '../../TransitionState';
+import { TransitionState } from '../TransitionState';
 
 function OAuth2RedirectHandler(props) {
   let location = useLocation();
@@ -25,8 +25,8 @@ function OAuth2RedirectHandler(props) {
 
 
   return (<div>
-    {(transition === TransitionState.Fail) && <Navigate to="/login" />}
-    {(transition === TransitionState.Success) && <Navigate to="/" />}
+    {(transition === TransitionState.Fail) && <Navigate to="/login" replace/>}
+    {(transition === TransitionState.Success) && <Navigate to="/" replace/>}
   </div>);
 
 

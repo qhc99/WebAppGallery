@@ -1,12 +1,12 @@
 import React, { Component, useEffect, useState } from 'react';
 import './Login.css';
-import { GITHUB_AUTH_URL, ACCESS_TOKEN } from '../../constants';
-import { login } from '../../utils/APIUtils';
+import { GITHUB_AUTH_URL, ACCESS_TOKEN } from '../constants';
+import { login } from '../utils/APIUtils';
 import { Link, Navigate, useLocation } from 'react-router-dom'
-const githubLogo = require('../../img/github-logo.png');
+const githubLogo = require('../img/github-logo.png');
 
 function Login(props) {
-  let location = useLocation();
+  const location = useLocation();
   const [error, setError] = useState(false);
   useEffect(() => {
     // If the OAuth2 login encounters an error, the user is redirected to the /login page with an error.
@@ -20,16 +20,13 @@ function Login(props) {
         setError(true);
       }, 100);
     }
-  },[location])
-
-  if (props.authenticated) {
-    return <Navigate to="/" />;
-  }
+  })
 
   return (
     <div className="login-container">
+      {props.authenticated && <Navigate to="/" replace />}
       <div className="login-content">
-        {error && <Navigate to={"/login"} />}
+        {error && <Navigate to={"/login"} replace />}
         <h1 className="login-title">Login to SpringSocial</h1>
         <SocialLogin />
         <div className="or-separator">
@@ -38,6 +35,7 @@ function Login(props) {
         <LoginForm {...props} />
         <span className="signup-link">New user? <Link to="/signup">Sign up!</Link></span>
       </div>
+
     </div>
   );
 }
@@ -61,14 +59,14 @@ function LoginForm(props) {
   const [loginSuccessRedirect, setLoginSeccessRedirect] = useState(false);
 
 
-  const handleInputChange = (event)=> {
+  const handleInputChange = (event) => {
     const target = event.target;
     const inputName = target.name;
     const inputValue = target.value;
-    setEmailPasswd({...emailPasswd, [inputName]:inputValue});
+    setEmailPasswd({ ...emailPasswd, [inputName]: inputValue });
   }
 
-  const handleSubmit = (event)=> {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     const loginRequest = emailPasswd;
@@ -102,7 +100,7 @@ function LoginForm(props) {
           <button type="submit" className="btn btn-block btn-primary">Login</button>
         </div>
       </form>
-      {loginSuccessRedirect && <Navigate to={"/"} />}
+      {loginSuccessRedirect && <Navigate to={"/"} replace />}
     </div>
   );
 }

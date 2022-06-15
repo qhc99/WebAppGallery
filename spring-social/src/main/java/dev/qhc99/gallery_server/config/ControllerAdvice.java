@@ -1,4 +1,4 @@
-package dev.qhc99.gallery_server.controller;
+package dev.qhc99.gallery_server.config;
 
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
