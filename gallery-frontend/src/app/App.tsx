@@ -3,7 +3,6 @@ import {
   BrowserRouter,
   Route,
   Routes,
-  useLocation
 } from 'react-router-dom';
 import AppHeader from './AppHeader';
 import Home from './Home';
@@ -15,10 +14,7 @@ import NotFound from './NotFound';
 import LoadingIndicator from './LoadingIndicator';
 import { getCurrentUser } from '../utils/APIUtils';
 import { ACCESS_TOKEN } from '../constants';
-import ProtectedRoute from './PrivateRoute';
-// import 'react-s-alert/dist/s-alert-default.css';
-// import 'react-s-alert/dist/s-alert-css-effects/slide.css';
-// import './App.css';
+import ProtectedRoute from './ProtectedRoute';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
