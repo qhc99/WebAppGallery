@@ -7,7 +7,7 @@ import dev.qhc99.gallery_server.data.ApiResponse;
 import dev.qhc99.gallery_server.data.AuthResponse;
 import dev.qhc99.gallery_server.data.LoginRequest;
 import dev.qhc99.gallery_server.data.SignUpRequest;
-import dev.qhc99.gallery_server.db.UserRepository;
+import dev.qhc99.gallery_server.repo.UserRepository;
 import dev.qhc99.gallery_server.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

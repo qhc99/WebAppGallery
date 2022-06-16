@@ -1,6 +1,6 @@
 package dev.qhc99.gallery_server.config;
 
-import dev.qhc99.gallery_server.service.HttpCookieOAuth2AuthorizationRequestRepository;
+import dev.qhc99.gallery_server.repo.HttpCookieOAuth2AuthorizationRequestRepository;
 import dev.qhc99.gallery_server.util.CookieUtils;
 import dev.qhc99.gallery_server.exception.BadRequestException;
 import dev.qhc99.gallery_server.service.TokenService;

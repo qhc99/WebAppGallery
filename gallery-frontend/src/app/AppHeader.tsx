@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import './AppHeader.css';
 
@@ -25,10 +25,10 @@ function AppHeader(props) {
               ) : (
                 <ul>
                   <li>
-                    <NavLink to="/profile">Profile</NavLink>
+                    <NavLink to="/login">Login</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/login">Login</NavLink>
+                    <NavLink to="/calculator">Calculator</NavLink>
                   </li>
                   <li>
                     <NavLink to="/signup">Signup</NavLink>

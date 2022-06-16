@@ -17,6 +17,7 @@ import { ACCESS_TOKEN } from '../constants';
 import ProtectedRoute from './ProtectedRoute';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Calculator from '../calculator/component/Calculator'
 
 
 function App(props) {
@@ -24,6 +25,7 @@ function App(props) {
 
   const [user, setUser] = useState(null);
   const [appAuthenticated, setAppAuthenticated] = useState(false)
+  const [userStared, setUserStared] = useState(false)
   const [loading, setLoading] = useState(true);
 
 
@@ -67,6 +69,7 @@ function App(props) {
               <Route element={<ProtectedRoute isAllowed={appAuthenticated} />} >
                 <Route path='/profile' element={<Profile currentUser={user} />} />
               </Route>
+              <Route path='/calculator' element={<Calculator />} />
               <Route path='*' element={<NotFound />} />
             </Route>
 

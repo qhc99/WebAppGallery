@@ -1,0 +1,9 @@
+.component-app {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 660px;
+  aspect-ratio: 610 /721;
+}
+

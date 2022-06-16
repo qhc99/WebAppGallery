@@ -50,10 +50,9 @@ export function signup(signupRequest) {
 	});
 }
 
-export function staredResource(starReq) {
+export function staredResource() {
 	return request({
 		url: API_BASE_URL + "/auth/stared",
-		method: 'POST',
-		body: JSON.stringify(starReq)
+		method: 'get',
 	});
 }

@@ -18,6 +18,10 @@ input[type="radio"] {
           box-sizing: border-box;
   padding: 0;
 }
+#root {
+  height: 100%;
+  width: 100%;
+}
 
 body {
   margin: 0;
