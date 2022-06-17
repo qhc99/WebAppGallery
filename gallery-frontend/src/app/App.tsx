@@ -12,7 +12,7 @@ import Profile from './Profile';
 import OAuth2RedirectHandler from './OAuth2Redirect';
 import NotFound from './NotFound';
 import LoadingIndicator from './LoadingIndicator';
-import { getCurrentUser } from '../utils/APIUtils';
+import { getCurrentUser, getUserStaredStatus } from '../utils/APIUtils';
 import { ACCESS_TOKEN } from '../constants';
 import ProtectedRoute from './ProtectedRoute';
 import { useState } from 'react';
@@ -23,31 +23,38 @@ import Calculator from '../calculator/component/Calculator'
 function App(props) {
 
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [appAuthenticated, setAppAuthenticated] = useState(false)
   const [userStared, setUserStared] = useState(false)
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
 
   function handleLogout() {
     localStorage.removeItem(ACCESS_TOKEN);
-    setUser(null);
+    setUser({});
     setAppAuthenticated(false)
     // TODO Alert UI
     alert("You're safely logged out!");
   }
+  // double effect
 
   useEffect(() => {
-    console.log("load user" + new Date())
-    setLoading(true);
     getCurrentUser()
       .then(response => {
         setUser(response);
         setAppAuthenticated(true)
-        setLoading(false)
       }).catch((_) => {
-        setLoading(false)
       });
+  }, [])
+
+  useEffect(() => {
+    getUserStaredStatus()
+      .then(response => {
+        setUserStared(response.success === true)
+      }).catch(e => {
+        console.log("user not stared.")
+        console.log(e.error)
+      })
   }, [appAuthenticated])
 
   return (
@@ -66,17 +73,20 @@ function App(props) {
               <Route path="/signup"
                 element={<Signup authenticated={appAuthenticated} />} />
               <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler setAppAuthed={setAppAuthenticated} />} />
-              <Route element={<ProtectedRoute isAllowed={appAuthenticated} />} >
+              <Route element={<ProtectedRoute isAllowed={appAuthenticated} redirect="/login" />} >
                 <Route path='/profile' element={<Profile currentUser={user} />} />
               </Route>
-              <Route path='/calculator' element={<Calculator />} />
+              <Route element={<ProtectedRoute isAllowed={userStared} redirect="/" warning="please star my project at github" />} >
+                <Route path='/calculator' element={<Calculator />} />
+              </Route>
+
               <Route path='*' element={<NotFound />} />
             </Route>
 
           </Routes>
         </BrowserRouter>
       </div>
-      {loading && <LoadingIndicator />}
+      {/* {loading && <LoadingIndicator />} */}
       {/* // TODO alert UI */}
       {/* <Alert stack={{limit: 3}} 
           timeout = {3000}

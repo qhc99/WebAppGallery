@@ -2,9 +2,9 @@ package dev.qhc99.gallery_server.services;
 
 
 import dev.qhc99.gallery_server.data_class.AuthProvider;
+import dev.qhc99.gallery_server.data_class.DBUser;
 import dev.qhc99.gallery_server.data_class.GithubOAuth2UserInfo;
 import dev.qhc99.gallery_server.data_class.OAuth2UserInfo;
-import dev.qhc99.gallery_server.data_class.User;
 
 import dev.qhc99.gallery_server.exceptions.OAuth2AuthenticationProcessingException;
 import dev.qhc99.gallery_server.repos.UserRepository;
@@ -27,7 +27,7 @@ public class AppOAuth2UserService extends DefaultOAuth2UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    UserToAppUserService userToAppUserService;
+    UserDBToAppUserService userDBToAppUserService;
 
     public static OAuth2UserInfo getOAuth2UserInfo(String registrationId, Map<String, Object> attributes) {
         if (registrationId.equalsIgnoreCase(AuthProvider.github.toString())) {
@@ -57,37 +57,37 @@ public class AppOAuth2UserService extends DefaultOAuth2UserService {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
 
-        Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
-        User user;
+        Optional<DBUser> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
+        DBUser DBUser;
         if(userOptional.isPresent()) {
-            user = userOptional.get();
-            if(!user.getProvider().equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
+            DBUser = userOptional.get();
+            if(!DBUser.getProvider().equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
                 throw new OAuth2AuthenticationProcessingException("Looks like you're signed up with " +
-                        user.getProvider() + " account. Please use your " + user.getProvider() +
+                        DBUser.getProvider() + " account. Please use your " + DBUser.getProvider() +
                         " account to login.");
             }
-            user = updateExistingUser(user, oAuth2UserInfo);
+            DBUser = updateExistingUser(DBUser, oAuth2UserInfo);
         } else {
-            user = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
+            DBUser = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
         }
 
-        return userToAppUserService.create(user, oAuth2User.getAttributes());
+        return userDBToAppUserService.create(DBUser, oAuth2User.getAttributes());
     }
 
-    private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
-        User user = new User();
-        user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
-        user.setProviderId(oAuth2UserInfo.getId());
-        user.setName(oAuth2UserInfo.getName());
-        user.setEmail(oAuth2UserInfo.getEmail());
-        user.setImageUrl(oAuth2UserInfo.getImageUrl());
-        return userRepository.save(user);
+    private DBUser registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
+        DBUser DBUser = new DBUser();
+        DBUser.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
+        DBUser.setProviderId(oAuth2UserInfo.getId());
+        DBUser.setName(oAuth2UserInfo.getName());
+        DBUser.setEmail(oAuth2UserInfo.getEmail());
+        DBUser.setImageUrl(oAuth2UserInfo.getImageUrl());
+        return userRepository.save(DBUser);
     }
 
-    private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
-        existingUser.setName(oAuth2UserInfo.getName());
-        existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
-        return userRepository.save(existingUser);
+    private DBUser updateExistingUser(DBUser existingDBUser, OAuth2UserInfo oAuth2UserInfo) {
+        existingDBUser.setName(oAuth2UserInfo.getName());
+        existingDBUser.setImageUrl(oAuth2UserInfo.getImageUrl());
+        return userRepository.save(existingDBUser);
     }
 
 }

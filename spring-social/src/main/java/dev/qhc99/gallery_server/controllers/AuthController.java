@@ -1,12 +1,8 @@
 package dev.qhc99.gallery_server.controllers;
 
+import dev.qhc99.gallery_server.data_class.*;
 import dev.qhc99.gallery_server.exceptions.BadRequestException;
-import dev.qhc99.gallery_server.data_class.AuthProvider;
-import dev.qhc99.gallery_server.data_class.User;
-import dev.qhc99.gallery_server.data_class.ApiResponse;
-import dev.qhc99.gallery_server.data_class.AuthResponse;
-import dev.qhc99.gallery_server.data_class.LoginRequest;
-import dev.qhc99.gallery_server.data_class.SignUpRequest;
+import dev.qhc99.gallery_server.data_class.DBUser;
 import dev.qhc99.gallery_server.repos.UserRepository;
 import dev.qhc99.gallery_server.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,15 +57,15 @@ public class AuthController {
         }
 
         // Creating user's account
-        User user = new User();
-        user.setName(signUpRequest.getName());
-        user.setEmail(signUpRequest.getEmail());
-        user.setPassword(signUpRequest.getPassword());
-        user.setProvider(AuthProvider.local);
+        DBUser DBUser = new DBUser();
+        DBUser.setName(signUpRequest.getName());
+        DBUser.setEmail(signUpRequest.getEmail());
+        DBUser.setPassword(signUpRequest.getPassword());
+        DBUser.setProvider(AuthProvider.local);
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        DBUser.setPassword(passwordEncoder.encode(DBUser.getPassword()));
 
-        User result = userRepository.save(user);
+        DBUser result = userRepository.save(DBUser);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/user/me")

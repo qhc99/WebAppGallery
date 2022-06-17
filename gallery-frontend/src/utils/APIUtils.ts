@@ -14,6 +14,7 @@ const request = (options) => {
 
 	return fetch(options.url, options)
 		.then(response =>
+      
 			response.json().then(json => {
 				if (!response.ok) {
 					return Promise.reject(json);
@@ -50,9 +51,9 @@ export function signup(signupRequest) {
 	});
 }
 
-export function staredResource() {
+export function getUserStaredStatus() {
 	return request({
-		url: API_BASE_URL + "/auth/stared",
+		url: API_BASE_URL + "/user/stared",
 		method: 'get',
 	});
 }

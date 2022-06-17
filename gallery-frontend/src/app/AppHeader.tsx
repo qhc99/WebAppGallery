@@ -16,6 +16,9 @@ function AppHeader(props) {
               {props.authenticated ? (
                 <ul>
                   <li>
+                    <NavLink to="/calculator">Calculator</NavLink>
+                  </li>
+                  <li>
                     <NavLink to="/profile">Profile</NavLink>
                   </li>
                   <li>
@@ -25,10 +28,10 @@ function AppHeader(props) {
               ) : (
                 <ul>
                   <li>
-                    <NavLink to="/login">Login</NavLink>
+                    <NavLink to="/calculator">Calculator</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/calculator">Calculator</NavLink>
+                    <NavLink to="/login">Login</NavLink>
                   </li>
                   <li>
                     <NavLink to="/signup">Signup</NavLink>

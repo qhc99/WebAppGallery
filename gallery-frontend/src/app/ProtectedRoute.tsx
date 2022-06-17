@@ -5,11 +5,16 @@ import {
 } from "react-router-dom";
 
 
-function ProtectedRoute(isAllowed, redirect = "/login") {
-  if(isAllowed === true){
-    return <Outlet />;
-  }
-  return <Navigate to={redirect} replace />;
+function ProtectedRoute(props) {
+  useEffect(()=>{
+    if(props.warning != null && !!!props.isAllowed){
+      alert(props.warning)
+    }
+  })
+  return <div>
+    {props.isAllowed &&  <Outlet />}
+    {!!!props.isAllowed && <Navigate to={props.redirect} replace />}
+  </div>;
 };
 
 export default ProtectedRoute
