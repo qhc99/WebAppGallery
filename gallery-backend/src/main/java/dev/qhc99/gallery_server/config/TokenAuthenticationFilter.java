@@ -26,6 +26,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private AppUserDetailsService appUserDetailsService;
 
+
+
     private static final Logger logger = LoggerFactory.getLogger(TokenAuthenticationFilter.class);
 
     @Override
@@ -52,7 +54,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7, bearerToken.length());
+            return bearerToken.substring(7);
         }
         return null;
     }

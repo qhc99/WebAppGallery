@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class AppOAuth2UserService extends DefaultOAuth2UserService {
+public class OAuth2DBUserService extends DefaultOAuth2UserService {
 
     @Autowired
     private UserRepository userRepository;

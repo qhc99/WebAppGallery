@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class AuthedController {
 
-    public static final Logger logger = LoggerFactory.getLogger(AuthedController.class);
-    @Autowired
-    private UserRepository userRepository;
+    static final Logger logger = LoggerFactory.getLogger(AuthedController.class);
+    private final UserRepository userRepository;
+
+    public AuthedController(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/me")
     @PreAuthorize("hasRole('USER')")

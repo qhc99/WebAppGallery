@@ -15,7 +15,7 @@ public class TokenService {
 
     private static final Logger logger = LoggerFactory.getLogger(TokenService.class);
 
-    private AppProperties appProperties;
+    private final AppProperties appProperties;
 
     public TokenService(AppProperties appProperties) {
         this.appProperties = appProperties;

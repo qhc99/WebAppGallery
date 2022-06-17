@@ -7,7 +7,6 @@ import dev.qhc99.gallery_server.exceptions.ResourceNotFoundException;
 import dev.qhc99.gallery_server.repos.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
