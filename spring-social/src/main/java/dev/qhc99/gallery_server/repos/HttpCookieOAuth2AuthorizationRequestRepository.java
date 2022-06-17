@@ -1,6 +1,6 @@
-package dev.qhc99.gallery_server.repo;
+package dev.qhc99.gallery_server.repos;
 
-import dev.qhc99.gallery_server.util.CookieUtils;
+import dev.qhc99.gallery_server.utils.CookieUtils;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;

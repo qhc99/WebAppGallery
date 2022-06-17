@@ -1,9 +1,9 @@
-package dev.qhc99.gallery_server.controller;
+package dev.qhc99.gallery_server.controllers;
 
-import dev.qhc99.gallery_server.exception.ResourceNotFoundException;
-import dev.qhc99.gallery_server.data.User;
-import dev.qhc99.gallery_server.repo.UserRepository;
-import dev.qhc99.gallery_server.data.AppUser;
+import dev.qhc99.gallery_server.exceptions.ResourceNotFoundException;
+import dev.qhc99.gallery_server.data_class.User;
+import dev.qhc99.gallery_server.repos.UserRepository;
+import dev.qhc99.gallery_server.data_class.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

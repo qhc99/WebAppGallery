@@ -1,6 +1,4 @@
-package dev.qhc99.gallery_server.service;
-
-import java.io.FileNotFoundException;
+package dev.qhc99.gallery_server.services;
 
 public class EpubToPdfService {
 

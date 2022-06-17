@@ -1,4 +1,4 @@
-package dev.qhc99.gallery_server.util;
+package dev.qhc99.gallery_server.utils;
 
 import org.springframework.util.SerializationUtils;
 import javax.servlet.http.Cookie;

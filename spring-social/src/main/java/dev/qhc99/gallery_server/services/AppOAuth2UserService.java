@@ -1,13 +1,13 @@
-package dev.qhc99.gallery_server.service;
+package dev.qhc99.gallery_server.services;
 
 
-import dev.qhc99.gallery_server.data.AuthProvider;
-import dev.qhc99.gallery_server.data.GithubOAuth2UserInfo;
-import dev.qhc99.gallery_server.data.OAuth2UserInfo;
-import dev.qhc99.gallery_server.data.User;
+import dev.qhc99.gallery_server.data_class.AuthProvider;
+import dev.qhc99.gallery_server.data_class.GithubOAuth2UserInfo;
+import dev.qhc99.gallery_server.data_class.OAuth2UserInfo;
+import dev.qhc99.gallery_server.data_class.User;
 
-import dev.qhc99.gallery_server.exception.OAuth2AuthenticationProcessingException;
-import dev.qhc99.gallery_server.repo.UserRepository;
+import dev.qhc99.gallery_server.exceptions.OAuth2AuthenticationProcessingException;
+import dev.qhc99.gallery_server.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;

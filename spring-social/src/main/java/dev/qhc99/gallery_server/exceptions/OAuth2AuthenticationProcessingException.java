@@ -1,4 +1,4 @@
-package dev.qhc99.gallery_server.exception;
+package dev.qhc99.gallery_server.exceptions;
 
 import org.springframework.security.core.AuthenticationException;
 

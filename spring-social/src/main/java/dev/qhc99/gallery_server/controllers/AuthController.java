@@ -1,14 +1,14 @@
-package dev.qhc99.gallery_server.controller;
+package dev.qhc99.gallery_server.controllers;
 
-import dev.qhc99.gallery_server.exception.BadRequestException;
-import dev.qhc99.gallery_server.data.AuthProvider;
-import dev.qhc99.gallery_server.data.User;
-import dev.qhc99.gallery_server.data.ApiResponse;
-import dev.qhc99.gallery_server.data.AuthResponse;
-import dev.qhc99.gallery_server.data.LoginRequest;
-import dev.qhc99.gallery_server.data.SignUpRequest;
-import dev.qhc99.gallery_server.repo.UserRepository;
-import dev.qhc99.gallery_server.service.TokenService;
+import dev.qhc99.gallery_server.exceptions.BadRequestException;
+import dev.qhc99.gallery_server.data_class.AuthProvider;
+import dev.qhc99.gallery_server.data_class.User;
+import dev.qhc99.gallery_server.data_class.ApiResponse;
+import dev.qhc99.gallery_server.data_class.AuthResponse;
+import dev.qhc99.gallery_server.data_class.LoginRequest;
+import dev.qhc99.gallery_server.data_class.SignUpRequest;
+import dev.qhc99.gallery_server.repos.UserRepository;
+import dev.qhc99.gallery_server.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

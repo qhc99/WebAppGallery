@@ -1,4 +1,4 @@
-package dev.qhc99.gallery_server.data;
+package dev.qhc99.gallery_server.data_class;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

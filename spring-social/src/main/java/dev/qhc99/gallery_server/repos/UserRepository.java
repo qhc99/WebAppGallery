@@ -1,6 +1,6 @@
-package dev.qhc99.gallery_server.repo;
+package dev.qhc99.gallery_server.repos;
 
-import dev.qhc99.gallery_server.data.User;
+import dev.qhc99.gallery_server.data_class.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

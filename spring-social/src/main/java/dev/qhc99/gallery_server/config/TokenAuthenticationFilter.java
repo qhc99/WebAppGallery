@@ -1,7 +1,7 @@
 package dev.qhc99.gallery_server.config;
 
-import dev.qhc99.gallery_server.service.AppUserDetailsService;
-import dev.qhc99.gallery_server.service.TokenService;
+import dev.qhc99.gallery_server.services.AppUserDetailsService;
+import dev.qhc99.gallery_server.services.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

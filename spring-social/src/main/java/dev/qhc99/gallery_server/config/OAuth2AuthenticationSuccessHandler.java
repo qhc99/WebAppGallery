@@ -1,9 +1,9 @@
 package dev.qhc99.gallery_server.config;
 
-import dev.qhc99.gallery_server.repo.HttpCookieOAuth2AuthorizationRequestRepository;
-import dev.qhc99.gallery_server.util.CookieUtils;
-import dev.qhc99.gallery_server.exception.BadRequestException;
-import dev.qhc99.gallery_server.service.TokenService;
+import dev.qhc99.gallery_server.repos.HttpCookieOAuth2AuthorizationRequestRepository;
+import dev.qhc99.gallery_server.utils.CookieUtils;
+import dev.qhc99.gallery_server.exceptions.BadRequestException;
+import dev.qhc99.gallery_server.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;

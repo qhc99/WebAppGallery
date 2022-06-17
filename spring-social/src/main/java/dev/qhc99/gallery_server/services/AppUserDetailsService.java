@@ -1,9 +1,9 @@
-package dev.qhc99.gallery_server.service;
+package dev.qhc99.gallery_server.services;
 
 
-import dev.qhc99.gallery_server.exception.ResourceNotFoundException;
-import dev.qhc99.gallery_server.data.User;
-import dev.qhc99.gallery_server.repo.UserRepository;
+import dev.qhc99.gallery_server.exceptions.ResourceNotFoundException;
+import dev.qhc99.gallery_server.data_class.User;
+import dev.qhc99.gallery_server.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

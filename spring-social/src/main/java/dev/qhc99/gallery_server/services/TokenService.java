@@ -1,7 +1,7 @@
-package dev.qhc99.gallery_server.service;
+package dev.qhc99.gallery_server.services;
 
 import dev.qhc99.gallery_server.config.AppProperties;
-import dev.qhc99.gallery_server.data.AppUser;
+import dev.qhc99.gallery_server.data_class.AppUser;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,8 +1,8 @@
-package dev.qhc99.gallery_server.service;
+package dev.qhc99.gallery_server.services;
 
-import dev.qhc99.gallery_server.data.GithubUserJson;
-import dev.qhc99.gallery_server.data.User;
-import dev.qhc99.gallery_server.data.AppUser;
+import dev.qhc99.gallery_server.data_class.GithubUserJson;
+import dev.qhc99.gallery_server.data_class.User;
+import dev.qhc99.gallery_server.data_class.AppUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

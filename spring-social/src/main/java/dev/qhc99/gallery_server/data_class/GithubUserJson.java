@@ -1,4 +1,4 @@
-package dev.qhc99.gallery_server.data;
+package dev.qhc99.gallery_server.data_class;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
