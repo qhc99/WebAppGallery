@@ -3,9 +3,8 @@ package dev.qhc99.gallery_server.controllers;
 import dev.qhc99.gallery_server.data_class.*;
 import dev.qhc99.gallery_server.exceptions.BadRequestException;
 import dev.qhc99.gallery_server.data_class.DBUser;
-import dev.qhc99.gallery_server.repos.UserRepository;
+import dev.qhc99.gallery_server.repos.DBUserRepository;
 import dev.qhc99.gallery_server.services.TokenService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,18 +23,18 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
 
-    private final UserRepository userRepository;
+    private final DBUserRepository DBUserRepository;
 
     private final PasswordEncoder passwordEncoder;
 
     private final TokenService tokenService;
 
     public AuthController(AuthenticationManager authenticationManager,
-                          UserRepository userRepository,
+                          DBUserRepository DBUserRepository,
                           PasswordEncoder passwordEncoder,
                           TokenService tokenService){
         this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
+        this.DBUserRepository = DBUserRepository;
         this.passwordEncoder = passwordEncoder;
         this.tokenService = tokenService;
     }
@@ -58,7 +57,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
-        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if(DBUserRepository.existsByEmail(signUpRequest.getEmail())) {
             throw new BadRequestException("Email address already in use.");
         }
 
@@ -71,7 +70,7 @@ public class AuthController {
 
         DBUser.setPassword(passwordEncoder.encode(DBUser.getPassword()));
 
-        DBUser result = userRepository.save(DBUser);
+        DBUser result = DBUserRepository.save(DBUser);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/user/me")

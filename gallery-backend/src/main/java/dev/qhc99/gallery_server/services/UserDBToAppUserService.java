@@ -18,8 +18,6 @@ public class UserDBToAppUserService implements Serializable {
 
   public AppUser create(DBUser DBUser, List<SimpleGrantedAuthority> authorities) {
     authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-
-
     return new AppUser(
             DBUser.getId(),
             DBUser.getEmail(),

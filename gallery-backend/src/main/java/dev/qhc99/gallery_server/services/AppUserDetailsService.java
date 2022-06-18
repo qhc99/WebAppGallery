@@ -4,7 +4,7 @@ package dev.qhc99.gallery_server.services;
 import dev.qhc99.gallery_server.data_class.DBUser;
 import dev.qhc99.gallery_server.data_class.GithubUserJson;
 import dev.qhc99.gallery_server.exceptions.ResourceNotFoundException;
-import dev.qhc99.gallery_server.repos.UserRepository;
+import dev.qhc99.gallery_server.repos.DBUserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,16 +29,16 @@ public class AppUserDetailsService implements UserDetailsService {
 
   public static final Logger logger = LoggerFactory.getLogger(AppUserDetailsService.class);
 
-  UserRepository userRepository;
+  DBUserRepository DBUserRepository;
   UserDBToAppUserService userDBToAppUserService;
 
   AppUserDetailsService(@Value("${project.repo.owner}") String owner,
                         @Value("${project.repo.name}") String name,
-                        UserRepository userRepository,
+                        DBUserRepository DBUserRepository,
                         UserDBToAppUserService userDBToAppUserService) {
     this.owner = owner;
     this.repo_name = name;
-    this.userRepository = userRepository;
+    this.DBUserRepository = DBUserRepository;
     this.userDBToAppUserService = userDBToAppUserService;
   }
 
@@ -46,7 +46,7 @@ public class AppUserDetailsService implements UserDetailsService {
   @Transactional
   public UserDetails loadUserByUsername(String email)
           throws UsernameNotFoundException {
-    DBUser DBUser = userRepository.findByEmail(email)
+    DBUser DBUser = DBUserRepository.findByEmail(email)
             .orElseThrow(() ->
                     new UsernameNotFoundException("User not found with email : " + email)
             );
@@ -64,37 +64,32 @@ public class AppUserDetailsService implements UserDetailsService {
   @Transactional
   public UserDetails loadUserById(Long id) {
 
-    DBUser DBUser = userRepository.findById(id).orElseThrow(
+    DBUser DBUser = DBUserRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("User", "id", id)
     );
 
     List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-    if (!DBUser.getEmail().equals("chenq123@mcmaster.ca")) {
-      // too many request will be blocked by github temporarily ...
-      try {
-        var json_array = webClient
-                .get()
-                .uri(String.format("/repos/%s/%s/stargazers", owner, repo_name))
-                .retrieve()
-                .bodyToFlux(GithubUserJson.class)
-                .timeout(Duration.ofSeconds(3));
-        if (Boolean.TRUE.equals(json_array.any(g -> g.getLogin().equals(owner)).block())) {
-          authorities.add(new SimpleGrantedAuthority("STAR"));
-          logger.info("has star auth");
-        }
-        else {
-          logger.info("does not have star auth");
-        }
-      } catch (Exception e) {
-        logger.error(e.toString());
+    // too many request will be blocked by github temporarily ...
+    try {
+      var json_array = webClient
+              .get()
+              .uri(String.format("/repos/%s/%s/stargazers", owner, repo_name))
+              .retrieve()
+              .bodyToFlux(GithubUserJson.class)
+              .timeout(Duration.ofSeconds(3));
+      if (Boolean.TRUE.equals(json_array.any(g -> g.getLogin().equals(DBUser.getGithubLogin())).block())) {
+        authorities.add(new SimpleGrantedAuthority("STAR"));
+        logger.info("has star auth");
       }
-    }
-    else {
-      logger.info("add star auth");
-      authorities.add(new SimpleGrantedAuthority("STAR"));
+      else {
+        logger.info("does not have star auth");
+      }
+    } catch (Exception e) {
+      logger.error(e.toString());
     }
 
-    return userDBToAppUserService.create(DBUser,authorities);
+
+    return userDBToAppUserService.create(DBUser, authorities);
   }
 }

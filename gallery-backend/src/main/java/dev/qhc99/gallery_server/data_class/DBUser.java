@@ -1,4 +1,5 @@
 package dev.qhc99.gallery_server.data_class;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -10,92 +11,102 @@ import javax.validation.constraints.NotNull;
         @UniqueConstraint(columnNames = "email")
 })
 public class DBUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(nullable = false)
-    private String name;
+  @Column(nullable = false)
+  private String name;
 
-    @Email
-    @Column(nullable = false)
-    private String email;
+  @Email
+  @Column(nullable = false)
+  private String email;
 
-    private String imageUrl;
+  private String imageUrl;
 
-    @Column(nullable = false)
-    private Boolean emailVerified = false;
+  @Column(nullable = false)
+  private Boolean emailVerified = false;
 
-    @JsonIgnore
-    private String password;
+  @JsonIgnore
+  private String password;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private AuthProvider provider;
+  @NotNull
+  @Enumerated(EnumType.STRING)
+  private AuthProvider provider;
 
-    private String providerId;
+  private String providerId;
 
-    public Long getId() {
-        return id;
-    }
+  private String githubLogin;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public String getGithubLogin() {
+    return githubLogin;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setGithubLogin(String githubLogin) {
+    this.githubLogin = githubLogin;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public Boolean getEmailVerified() {
-        return emailVerified;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setEmailVerified(Boolean emailVerified) {
-        this.emailVerified = emailVerified;
-    }
+  public String getImageUrl() {
+    return imageUrl;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public Boolean getEmailVerified() {
+    return emailVerified;
+  }
 
-    public AuthProvider getProvider() {
-        return provider;
-    }
+  public void setEmailVerified(Boolean emailVerified) {
+    this.emailVerified = emailVerified;
+  }
 
-    public void setProvider(AuthProvider provider) {
-        this.provider = provider;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public String getProviderId() {
-        return providerId;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public void setProviderId(String providerId) {
-        this.providerId = providerId;
-    }
+  public AuthProvider getProvider() {
+    return provider;
+  }
+
+  public void setProvider(AuthProvider provider) {
+    this.provider = provider;
+  }
+
+  public String getProviderId() {
+    return providerId;
+  }
+
+  public void setProviderId(String providerId) {
+    this.providerId = providerId;
+  }
 }

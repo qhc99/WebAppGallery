@@ -7,7 +7,7 @@ import dev.qhc99.gallery_server.data_class.GithubOAuth2UserInfo;
 import dev.qhc99.gallery_server.data_class.OAuth2UserInfo;
 
 import dev.qhc99.gallery_server.exceptions.OAuth2AuthenticationProcessingException;
-import dev.qhc99.gallery_server.repos.UserRepository;
+import dev.qhc99.gallery_server.repos.DBUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
@@ -25,9 +25,9 @@ import java.util.Optional;
 public class OAuth2DBUserService extends DefaultOAuth2UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private DBUserRepository DBUserRepository;
     @Autowired
-    UserDBToAppUserService userDBToAppUserService;
+    UserDBToAppUserService dbuserToAppUserService;
 
     public static OAuth2UserInfo getOAuth2UserInfo(String registrationId, Map<String, Object> attributes) {
         if (registrationId.equalsIgnoreCase(AuthProvider.github.toString())) {
@@ -57,7 +57,7 @@ public class OAuth2DBUserService extends DefaultOAuth2UserService {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
 
-        Optional<DBUser> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
+        Optional<DBUser> userOptional = DBUserRepository.findByEmail(oAuth2UserInfo.getEmail());
         DBUser DBUser;
         if(userOptional.isPresent()) {
             DBUser = userOptional.get();
@@ -71,7 +71,7 @@ public class OAuth2DBUserService extends DefaultOAuth2UserService {
             DBUser = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
         }
 
-        return userDBToAppUserService.create(DBUser, oAuth2User.getAttributes());
+        return dbuserToAppUserService.create(DBUser, oAuth2User.getAttributes());
     }
 
     private DBUser registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
@@ -81,13 +81,14 @@ public class OAuth2DBUserService extends DefaultOAuth2UserService {
         DBUser.setName(oAuth2UserInfo.getName());
         DBUser.setEmail(oAuth2UserInfo.getEmail());
         DBUser.setImageUrl(oAuth2UserInfo.getImageUrl());
-        return userRepository.save(DBUser);
+        DBUser.setGithubLogin((String) oAuth2UserInfo.getAttributes().get("login"));
+        return DBUserRepository.save(DBUser);
     }
 
     private DBUser updateExistingUser(DBUser existingDBUser, OAuth2UserInfo oAuth2UserInfo) {
         existingDBUser.setName(oAuth2UserInfo.getName());
         existingDBUser.setImageUrl(oAuth2UserInfo.getImageUrl());
-        return userRepository.save(existingDBUser);
+        return DBUserRepository.save(existingDBUser);
     }
 
 }
