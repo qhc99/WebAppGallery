@@ -76,7 +76,7 @@ function App(props) {
               <Route element={<ProtectedRoute isAllowed={appAuthenticated} redirect="/login" />} >
                 <Route path='/profile' element={<Profile currentUser={user} />} />
               </Route>
-              <Route element={<ProtectedRoute isAllowed={userStared} redirect="/" warning="please star my project at github" />} >
+              <Route element={<ProtectedRoute isAllowed={userStared} redirect="/" warning="please login and star my project at github" />} >
                 <Route path='/calculator' element={<Calculator />} />
               </Route>
 
