@@ -11,7 +11,6 @@ import Signup from './Signup';
 import Profile from './Profile';
 import OAuth2RedirectHandler from './OAuth2Redirect';
 import NotFound from './NotFound';
-import LoadingIndicator from './LoadingIndicator';
 import { getCurrentUser, getUserStaredStatus } from '../utils/APIUtils';
 import { ACCESS_TOKEN } from '../constants';
 import ProtectedRoute from './ProtectedRoute';

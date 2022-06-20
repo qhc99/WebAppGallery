@@ -1,12 +1,14 @@
-# SPA (Single Page  Application) demo.
+# **SPA (Single Page  Application) and OAuth2 demo.**
 
-## Backend
-### Implemented Features: 
-Configuration for SPA:
+## **Spring Boot Backend**
+Essential Configuration for SPA architecture:
 * CSRF disabled
 * CORS enabled and restriceted
 * stateless session management 
+* JWT authentication
 
+OAuth2 grant type flow chart:
+![OAuth2 grant type flow chart](./pic/OAuth2%20grant%20type%20flow.png) 
 
 ### Backend TODO list
 - [x] Authorization based on star status of this project.
@@ -16,12 +18,13 @@ Configuration for SPA:
 
 
 
-## Frontend
+## **React Frontend**
+Pure functional components. React core and router dom library are updated to lastest release. 
 
 ### Frontend TODO list
 - [ ] UI for alert pop up.
 - [ ] Token storage safety.
-- [ ] Improve authentication efficiency using React Context.
+- [ ] More efficient authentication using React Context.
 - [ ] Real time currency exchange rate page.
 
 
