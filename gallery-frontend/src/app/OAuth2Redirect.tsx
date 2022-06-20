@@ -5,6 +5,7 @@ import { TransitionState } from '../TransitionState';
 
 function OAuth2RedirectHandler(props) {
   let location = useLocation();
+  // prevent early redirect
   const [transition, setTransition] = useState(TransitionState.Loading);
   useEffect(() => {
     function getUrlParameter(name) {

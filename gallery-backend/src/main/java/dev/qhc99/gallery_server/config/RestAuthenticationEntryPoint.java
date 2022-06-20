@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * User friendly rest message
+ */
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     static final Logger logger = LoggerFactory.getLogger(RestAuthenticationEntryPoint.class);
