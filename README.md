@@ -4,7 +4,7 @@
 Essential Configuration for SPA architecture:
 * CSRF disabled
 * CORS enabled and restriceted
-* stateless session management 
+* Stateless session management 
 * JWT authentication
 
 OAuth2 grant type flow chart:
