@@ -48,7 +48,7 @@ public class TokenService {
         try {
             Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret()).parseClaimsJws(authToken);
             return true;
-        } catch (SignatureException ex) {
+        } catch (SecurityException ex) {
             logger.error("Invalid JWT signature");
         } catch (MalformedJwtException ex) {
             logger.error("Invalid JWT token");

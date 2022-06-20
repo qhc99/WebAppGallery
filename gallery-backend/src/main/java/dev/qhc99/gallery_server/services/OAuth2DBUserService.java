@@ -26,8 +26,6 @@ public class OAuth2DBUserService extends DefaultOAuth2UserService {
 
     @Autowired
     private DBUserRepository DBUserRepository;
-    @Autowired
-    UserDBToAppUserService dbuserToAppUserService;
 
     public static OAuth2UserInfo getOAuth2UserInfo(String registrationId, Map<String, Object> attributes) {
         if (registrationId.equalsIgnoreCase(AuthProvider.github.toString())) {
@@ -71,7 +69,7 @@ public class OAuth2DBUserService extends DefaultOAuth2UserService {
             DBUser = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
         }
 
-        return dbuserToAppUserService.create(DBUser, oAuth2User.getAttributes());
+        return AppUserDetailsService.create(DBUser, oAuth2User.getAttributes());
     }
 
     private DBUser registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {

@@ -1,6 +1,7 @@
 package dev.qhc99.gallery_server.services;
 
 
+import dev.qhc99.gallery_server.data_class.AppUser;
 import dev.qhc99.gallery_server.data_class.DBUser;
 import dev.qhc99.gallery_server.data_class.GithubUserJson;
 import dev.qhc99.gallery_server.exceptions.ResourceNotFoundException;
@@ -19,6 +20,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by rajeevkumarsingh on 02/08/17.
@@ -30,16 +32,15 @@ public class AppUserDetailsService implements UserDetailsService {
   public static final Logger logger = LoggerFactory.getLogger(AppUserDetailsService.class);
 
   DBUserRepository DBUserRepository;
-  UserDBToAppUserService userDBToAppUserService;
+
 
   AppUserDetailsService(@Value("${project.repo.owner}") String owner,
                         @Value("${project.repo.name}") String name,
-                        DBUserRepository DBUserRepository,
-                        UserDBToAppUserService userDBToAppUserService) {
+                        DBUserRepository DBUserRepository) {
     this.owner = owner;
     this.repo_name = name;
     this.DBUserRepository = DBUserRepository;
-    this.userDBToAppUserService = userDBToAppUserService;
+
   }
 
   @Override
@@ -51,7 +52,7 @@ public class AppUserDetailsService implements UserDetailsService {
                     new UsernameNotFoundException("User not found with email : " + email)
             );
 
-    return userDBToAppUserService.create(DBUser);
+    return create(DBUser);
   }
 
   private final String owner;
@@ -90,6 +91,26 @@ public class AppUserDetailsService implements UserDetailsService {
     }
 
 
-    return userDBToAppUserService.create(DBUser, authorities);
+    return create(DBUser, authorities);
+  }
+
+  public static AppUser create(DBUser DBUser) {
+    return create(DBUser, new ArrayList<>());
+  }
+
+  public static AppUser create(DBUser DBUser, List<SimpleGrantedAuthority> authorities) {
+    authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+    return new AppUser(
+            DBUser.getId(),
+            DBUser.getEmail(),
+            DBUser.getPassword(),
+            authorities
+    );
+  }
+
+  public static AppUser create(DBUser DBUser, Map<String, Object> attributes) {
+    AppUser appUser = create(DBUser);
+    appUser.setAttributes(attributes);
+    return appUser;
   }
 }
