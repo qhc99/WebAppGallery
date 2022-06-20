@@ -7,7 +7,7 @@ Essential Configuration for SPA architecture:
 * Stateless session management 
 * JWT authentication
 
-OAuth2 grant type flow chart:
+OAuth2 grant type success flow chart:
 ![OAuth2 grant type flow chart](./pic/OAuth2%20grant%20type%20flow.png) 
 
 ### Backend TODO list
