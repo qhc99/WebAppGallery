@@ -1,9 +1,9 @@
 package dev.qhc99.gallery_server.config;
 
 
-import dev.qhc99.gallery_server.services.OAuth2DBUserService;
-import dev.qhc99.gallery_server.services.AppUserDetailsService;
 import dev.qhc99.gallery_server.repos.HttpCookieOAuth2AuthorizationRequestRepository;
+import dev.qhc99.gallery_server.services.AppUserDetailsService;
+import dev.qhc99.gallery_server.services.OAuth2DBUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

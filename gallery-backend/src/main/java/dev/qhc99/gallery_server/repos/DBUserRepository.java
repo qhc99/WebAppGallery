@@ -9,8 +9,8 @@ import java.util.Optional;
 @Repository
 public interface DBUserRepository extends JpaRepository<DBUser, Long> {
 
-    Optional<DBUser> findByEmail(String email);
+  Optional<DBUser> findByEmail(String email);
 
-    Boolean existsByEmail(String email);
+  Boolean existsByEmail(String email);
 
 }

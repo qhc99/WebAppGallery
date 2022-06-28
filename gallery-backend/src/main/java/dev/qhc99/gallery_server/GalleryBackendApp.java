@@ -11,8 +11,8 @@ import java.util.Locale;
 @EnableConfigurationProperties(AppProperties.class)
 public class GalleryBackendApp {
 
-	public static void main(String[] args) {
-		Locale.setDefault(Locale.CANADA);
-		SpringApplication.run(GalleryBackendApp.class, args);
-	}
+  public static void main(String[] args) {
+    Locale.setDefault(Locale.CANADA);
+    SpringApplication.run(GalleryBackendApp.class, args);
+  }
 }
