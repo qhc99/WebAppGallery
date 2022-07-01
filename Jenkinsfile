@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'echo "start"'
+                echo 'start'
                 sh 'cd spring-backend'
                 sh 'mvn --version'
             }
