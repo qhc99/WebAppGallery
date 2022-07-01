@@ -4,7 +4,7 @@ pipeline {
         stage('Test Backend') { 
             steps {
                 sh 'cd gallery-backend'
-                sh 'mvn clean test' 
+                sh 'mvnw clean test' 
             }
         }
     }
