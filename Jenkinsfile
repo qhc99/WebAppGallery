@@ -3,8 +3,11 @@ pipeline {
     stages {
         stage('Test Backend') { 
             steps {
-                sh 'cd gallery-backend'
-                sh 'mvn clean test' 
+                
+                sh '''
+                cd gallery-backend
+                mvn clean test
+                '''  
             }
         }
     }
