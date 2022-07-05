@@ -21,7 +21,7 @@ OAuth2 grant type success flow:
 ### Backend TODO 
 - [x] Authorization based on star status of this project.
 - [x] Migrate deprecated jjwt libray.
-- [ ] Secret properties storage safety.
+- [x] Secret properties storage safety.
 
 
 

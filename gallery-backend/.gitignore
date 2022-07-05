@@ -1,6 +1,6 @@
 /src/main/resources/application-key.properties
 /src/main/resources/keystore
-/src/main/resources/httpskey.p12
+/src/main/resources/keystore/httpskey.p12
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
