@@ -1,3 +1,4 @@
+
 package dev.qhc99.gallery_server.config;
 
 import dev.qhc99.gallery_server.services.AppUserDetailsService;

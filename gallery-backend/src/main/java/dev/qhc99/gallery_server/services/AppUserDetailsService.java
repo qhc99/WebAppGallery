@@ -31,7 +31,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
   public static final Logger logger = LoggerFactory.getLogger(AppUserDetailsService.class);
 
-  DBUserRepository DBUserRepository;
+  final DBUserRepository DBUserRepository;
 
 
   AppUserDetailsService(@Value("${project.repo.owner}") String owner,
@@ -60,7 +60,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
   private final String repo_name;
 
-  WebClient webClient = WebClient.create("https://api.github.com");
+  final WebClient webClient = WebClient.create("https://api.github.com");
 
   @Transactional
   public UserDetails loadUserById(Long id) {

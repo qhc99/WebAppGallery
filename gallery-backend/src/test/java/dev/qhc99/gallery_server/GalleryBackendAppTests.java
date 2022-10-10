@@ -8,7 +8,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.Assert;
 
 import java.net.URI;
-import java.net.URL;
 
 @SpringBootTest
 @ActiveProfiles("key")
@@ -22,7 +21,7 @@ public class GalleryBackendAppTests {
     Assert.isTrue(urls.size() != 0, "not empty");
     for (var url : urls) {
       try {
-        URI authorizedURI = URI.create(url);
+        URI ignore = URI.create(url);
       } catch (Exception e) {
         Assert.isTrue(false, e.toString());
       }

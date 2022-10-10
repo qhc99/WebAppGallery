@@ -22,9 +22,12 @@ import java.util.Optional;
 
 @Service
 public class OAuth2DBUserService extends DefaultOAuth2UserService {
+  private final DBUserRepository DBUserRepository;
 
   @Autowired
-  private DBUserRepository DBUserRepository;
+  public OAuth2DBUserService(DBUserRepository dbUserRepository){
+    this.DBUserRepository = dbUserRepository;
+  }
 
   public static OAuth2UserInfo getOAuth2UserInfo(String registrationId, Map<String, Object> attributes) {
     if (registrationId.equalsIgnoreCase(AuthProvider.github.toString())) {

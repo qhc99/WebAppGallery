@@ -1,11 +1,9 @@
 package dev.qhc99.gallery_server;
 
 import dev.qhc99.gallery_server.config.AppProperties;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Profile;
 
 import java.util.Locale;
 

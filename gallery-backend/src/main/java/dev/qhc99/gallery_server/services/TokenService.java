@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
 import java.util.Date;
 
 @Service
@@ -41,8 +43,11 @@ public class TokenService {
   }
 
   public Long getUserIdFromToken(String token) {
+
+    var s = appProperties.getAuth().getTokenSecret();
+    Key k = new SecretKeySpec(s.getBytes(),"base64");
     Claims claims = Jwts.parserBuilder()
-            .setSigningKey(appProperties.getAuth().getTokenSecret())
+            .setSigningKey(k)
             .build()
             .parseClaimsJws(token)
             .getBody();
@@ -52,8 +57,10 @@ public class TokenService {
 
   public boolean validateToken(String authToken) {
     try {
+      var s = appProperties.getAuth().getTokenSecret();
+      Key k = new SecretKeySpec(s.getBytes(),"base64");
       Jwts.parserBuilder()
-              .setSigningKey(appProperties.getAuth().getTokenSecret())
+              .setSigningKey(k)
               .build()
               .parseClaimsJws(authToken);
       return true;
